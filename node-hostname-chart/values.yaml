@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: aloncar7/node-hostname
+  tag: v2
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 3000
+  nodePort: 32499
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: minikube
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: node-hostname-tls
+      hosts:
+        - minikube
